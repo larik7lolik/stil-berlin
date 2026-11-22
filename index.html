@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFC501">
+  <title>Стиль — бытовые услуги в Берлине. Официально, чек, страховка</title>
+  <meta name="description" content="Русскоязычный мастер в Берлине. Сантехника, электрика, сборка мебели. Оценка по фото за 5 минут, фиксированная цена, приезд в окно 60 минут, чек и гарантия 6 месяцев.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Полоса прогресса прокрутки -->
+  <div class="scroll-progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <!-- Шапка -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a class="logo" href="#top" aria-label="Стиль — на главную">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L5 16l3 3 4.3-4.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4 2.5-2.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="logo-text"><strong>СТИЛЬ</strong><small>бытовые услуги</small></span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <a href="#benefits">Почему мы</a>
+        <a href="#how">Как работаем</a>
+        <a href="#prices">Цены</a>
+        <a href="#masters">Мастера</a>
+        <a href="#cases">Кейсы</a>
+        <a href="#reviews">Отзывы</a>
+      </nav>
+
+      <a class="btn btn-dark btn-sm header-cta" href="#cta" data-contact>
+        Написать мастеру
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="orb orb-1" data-parallax="-0.18"></span>
+        <span class="orb orb-2" data-parallax="0.14"></span>
+        <span class="orb orb-3" data-parallax="-0.1"></span>
+        <span class="grid-lines"></span>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy" data-reveal>
+          <div class="eyebrow"><span class="pulse"></span> Работаем официально в Германии</div>
+
+          <h1>
+            Работаю официально:<br>
+            <span class="hl">Impressum, чек,<br>страховка.</span><br>
+            Без скрытых доплат на месте.
+          </h1>
+
+          <p class="lead">Русскоязычный мастер в <span data-city>Берлин</span>. Приезд от 40 минут. Фиксирую цену по фото в WhatsApp до начала работ.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-dark btn-lg" href="#cta" data-contact>
+              Написать мастеру лично
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn btn-glass btn-lg" href="#prices">
+              Смотреть цены
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+
+          <ul class="trust-row" aria-label="Наши гарантии">
+            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Impressum</li>
+            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Чек с MwSt</li>
+            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Страховка</li>
+          </ul>
+        </div>
+
+        <div class="hero-panel" data-reveal style="--delay:.14s">
+          <div class="floating-badge floating-badge-top" data-parallax="0.09">
+            <span class="badge-icon">⚡</span>
+            <span><b>Приезд от 40 минут</b><small>по <span data-city>Берлин</span></small></span>
+          </div>
+
+          <div class="glass-panel hero-card">
+            <div class="panel-head">
+              <span class="phone-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="6" y="2.5" width="12" height="19" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M10 18.5h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </span>
+              <div><b>Договорились за 5 минут</b><small>Без звонков-перезвонов</small></div>
+            </div>
+
+            <ol class="panel-steps">
+              <li><span>01</span><p>Скиньте фото поломки<br><b>в WhatsApp / Telegram</b></p></li>
+              <li><span>02</span><p>Получаете <b>точную сумму</b><br>до начала работ</p></li>
+              <li><span>03</span><p>Мастер в пути — <b>цена не меняется</b></p></li>
+            </ol>
+
+            <div class="panel-foot"><span>Выезд мастера</span><strong>0€</strong><small>при заказе работ</small></div>
+          </div>
+
+          <div class="floating-badge floating-badge-bottom" data-parallax="-0.12">
+            <span class="badge-check">✓</span>
+            <span><b>Цена зафиксирована</b><small>никаких доплат на месте</small></span>
+          </div>
+        </div>
+      </div>
+
+      <a class="scroll-hint" href="#benefits" aria-label="Листайте ниже">
+        <span>Листайте ниже</span>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <!-- БОЛИ -->
+    <section class="section section-pains" id="benefits">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="kicker">Знакомо?</span>
+          <h2>Почему вам сюда,<br><span class="hl-inline">а не к « locals »</span></h2>
+          <p>Три ситуации, из-за которых люди теряют время, деньги и нервы. Мы убираем каждую из них.</p>
+        </div>
+
+        <div class="cards-grid cards-grid-3">
+          <article class="glass-card pain-card" data-reveal>
+            <div class="card-top"><span class="card-num">01</span><span class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6 21V9a6 6 0 0 1 12 0v12M4 21h16M12 3v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9 21v-5h6v5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span></div>
+            <h3>Немец не приедет из-за мелочи</h3>
+            <p>Течет кран или скрипит дверь, но местные мастера берут минимум 80€ за выезд и ждут 2 недели. Вам нужно решить проблему сегодня, а не через месяц.</p>
+          </article>
+
+          <article class="glass-card pain-card" data-reveal style="--delay:.09s">
+            <div class="card-top"><span class="card-num">02</span><span class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M15.5 8.5c-.7-.9-1.9-1.4-3.3-1.4-1.9 0-3.2.9-3.2 2.3 0 3.2 6.6 1.3 6.6 4.6 0 1.5-1.4 2.5-3.4 2.5-1.6 0-2.9-.6-3.7-1.6M12 5v14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </span></div>
+            <h3>Страх двойной оплаты</h3>
+            <p>По телефону сказали 50€, а по факту выставили 150€ за «сложность». Вы не знаете немецких терминов, чтобы спорить, и боитесь конфликтов.</p>
+          </article>
+
+          <article class="glass-card pain-card" data-reveal style="--delay:.18s">
+            <div class="card-top"><span class="card-num">03</span><span class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span></div>
+            <h3>Нет времени ждать и убирать</h3>
+            <p>Вы работаете или с детьми. Не можете сидеть дома 4 часа в ожидании мастера. И после его ухода приходится тратить еще час на уборку пыли.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- КАК РАБОТАЕМ -->
+    <section class="section section-how" id="how">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="kicker">Факты, а не обещания</span>
+          <h2>Как мы работаем</h2>
+          <p>Прозрачный процесс от первого сообщения до чека в руках.</p>
+        </div>
+
+        <div class="cards-grid cards-grid-3">
+          <article class="glass-card fact-card" data-reveal>
+            <span class="fact-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="fact-tag">01 / Договорённость</span>
+            <h3>Оценка за 5 минут</h3>
+            <p>Скиньте фото поломки в Telegram/WhatsApp → получите точную сумму. Цена не изменится при встрече. Никаких «ну тут надо посмотреть».</p>
+            <div class="fact-metric"><b data-count="5">5</b><span>минут на точную цену</span></div>
+          </article>
+
+          <article class="glass-card fact-card" data-reveal style="--delay:.09s">
+            <span class="fact-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="fact-tag">02 / Приезд</span>
+            <h3>Приезд в окно 60 минут</h3>
+            <p>Не ждите «с 9 до 18». Мастер звонит за 15 минут до прибытия. Среднее время работы: 45–90 минут. Вы свободны уже через час.</p>
+            <div class="fact-metric"><b data-count="60">60</b><span>минут вместо 4 часов</span></div>
+          </article>
+
+          <article class="glass-card fact-card" data-reveal style="--delay:.18s">
+            <span class="fact-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="fact-tag">03 / Результат</span>
+            <h3>Чистота и документы</h3>
+            <p>Работаем в бахилах. Убираем строительный мусор пылесосом. Выдаем чек с MwSt (если нужно) и гарантию на работу 6 месяцев. Ваша безопасность защищена законом.</p>
+            <div class="fact-metric"><b data-count="6">6</b><span>месяцев гарантии</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЦЕНЫ -->
+    <section class="section section-prices" id="prices">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="kicker">Прозрачно</span>
+          <h2>Цены без сюрпризов</h2>
+          <p><em>Фиксированные ставки для популярных услуг. Точная сумма — после оценки по фото.</em></p>
+        </div>
+
+        <div class="cards-grid cards-grid-3 price-grid">
+          <article class="glass-card price-card" data-reveal>
+            <div class="price-head">
+              <span class="price-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L5 16l3 3 4.3-4.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4 2.5-2.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              </span>
+              <h3>Мелкий ремонт</h3>
+            </div>
+            <ul class="price-list">
+              <li><span>Замена смесителя / сифона</span><b>45–65€</b></li>
+              <li><span>Установка розетки / выключателя (VDE)</span><b>35–55€</b></li>
+              <li><span>Сборка мебели (IKEA / Küchen)</span><b>40€/час</b></li>
+              <li><span>Навеска полок / картин / ТВ</span><b>25–45€</b></li>
+            </ul>
+            <p class="price-note">мин. 1 час при сборке мебели</p>
+
+            <div class="calc">
+              <label class="calc-label" for="calc-1">Рассчитать стоимость</label>
+              <div class="calc-field">
+                <select class="calc-select" id="calc-1" data-calc-select>
+                  <option data-label="Замена смесителя / сифона" data-price="45–65€">Замена смесителя / сифона — 45–65€</option>
+                  <option data-label="Установка розетки / выключателя (VDE)" data-price="35–55€">Установка розетки / выключателя (VDE) — 35–55€</option>
+                  <option data-label="Сборка мебели (IKEA / Küchen)" data-price="40€/час (мин. 1 час)">Сборка мебели (IKEA / Küchen) — 40€/час</option>
+                  <option data-label="Навеска полок / картин / ТВ" data-price="25–45€">Навеска полок / картин / ТВ — 25–45€</option>
+                </select>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="calc-result">
+                <span>Ориентировочная стоимость</span>
+                <strong data-calc-price>45–65€</strong>
+              </div>
+              <p class="calc-note">Точная сумма — после оценки по фото.</p>
+              <a class="btn btn-dark btn-calc" href="#cta" data-calc-cta>
+                Написать с расчётом
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="glass-card price-card" data-reveal style="--delay:.09s">
+            <div class="price-head">
+              <span class="price-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12M8 8V5h8v3M5 8l1 11h12l1-11M10 12v4m4-4v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <h3>Сантехника</h3>
+            </div>
+            <ul class="price-list">
+              <li><span>Устранение течи / засора</span><b>55–85€</b></li>
+              <li><span>Замена унитаза / раковины</span><b>90–130€</b></li>
+              <li><span>Подключение стиральной / посудомоечной машины</span><b>45–65€</b></li>
+            </ul>
+            <p class="price-note">работаем в бахилах, убираем за собой</p>
+
+            <div class="calc">
+              <label class="calc-label" for="calc-2">Рассчитать стоимость</label>
+              <div class="calc-field">
+                <select class="calc-select" id="calc-2" data-calc-select>
+                  <option data-label="Устранение течи / засора" data-price="55–85€">Устранение течи / засора — 55–85€</option>
+                  <option data-label="Замена унитаза / раковины" data-price="90–130€">Замена унитаза / раковины — 90–130€</option>
+                  <option data-label="Подключение стиральной / посудомоечной машины" data-price="45–65€">Подключение стиральной / посудомоечной машины — 45–65€</option>
+                </select>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="calc-result">
+                <span>Ориентировочная стоимость</span>
+                <strong data-calc-price>55–85€</strong>
+              </div>
+              <p class="calc-note">Точная сумма — после оценки по фото.</p>
+              <a class="btn btn-dark btn-calc" href="#cta" data-calc-cta>
+                Написать с расчётом
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="glass-card price-card" data-reveal style="--delay:.18s">
+            <div class="price-head">
+              <span class="price-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              </span>
+              <h3>Электрика</h3>
+            </div>
+            <ul class="price-list">
+              <li><span>Диагностика неисправности</span><b>35€</b></li>
+              <li><span>Монтаж люстры / светильника</span><b>40–70€</b></li>
+              <li><span>Замена автомата / УЗО</span><b>55–85€</b></li>
+            </ul>
+            <p class="price-note">диагностика вычитается из стоимости ремонта</p>
+
+            <div class="calc">
+              <label class="calc-label" for="calc-3">Рассчитать стоимость</label>
+              <div class="calc-field">
+                <select class="calc-select" id="calc-3" data-calc-select>
+                  <option data-label="Диагностика неисправности" data-price="35€">Диагностика неисправности — 35€</option>
+                  <option data-label="Монтаж люстры / светильника" data-price="40–70€">Монтаж люстры / светильника — 40–70€</option>
+                  <option data-label="Замена автомата / УЗО" data-price="55–85€">Замена автомата / УЗО — 55–85€</option>
+                </select>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="calc-result">
+                <span>Ориентировочная стоимость</span>
+                <strong data-calc-price>35€</strong>
+              </div>
+              <p class="calc-note">Точная сумма — после оценки по фото.</p>
+              <a class="btn btn-dark btn-calc" href="#cta" data-calc-cta>
+                Написать с расчётом
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="important-note" data-reveal>
+          <span class="note-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+          </span>
+          <p><b>Важно:</b> Выезд мастера в пределах <span data-city>Берлин</span> — 0€ при заказе работ. За городом — +0.50€/км. Все цены указаны с учетом MwSt (19%), если требуется чек для налоговой.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- МАСТЕРА -->
+    <section class="section section-masters" id="masters">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="kicker">Команда</span>
+          <h2>Выберите своего мастера</h2>
+          <p><em>Все специалисты — русскоязычные, с опытом работы в Германии от 3 лет. Работают официально.</em></p>
+        </div>
+
+        <div class="cards-grid cards-grid-3 master-grid">
+          <article class="glass-card master-card" data-reveal>
+            <div class="photo-slot" aria-label="Заглушка: фото мастера в рабочей одежде">
+              <svg class="silhouette" viewBox="0 0 120 130" fill="none" aria-hidden="true">
+                <circle cx="60" cy="38" r="20" fill="currentColor" opacity=".18"/>
+                <path d="M20 130c0-25 18-42 40-42s40 17 40 42" fill="currentColor" opacity=".18"/>
+                <path d="M86 92 99 78m-9 3 8 8" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".3"/>
+              </svg>
+              <span class="slot-label">ФОТО МАСТЕРА</span>
+            </div>
+            <div class="master-body">
+              <h3>Алексей К.</h3>
+              <p class="master-spec">Специализация: Сантехника, электрика (VDE-сертификат)</p>
+              <div class="chips"><span>Опыт в DE: 7 лет</span><span>Русский, Немецкий (B2)</span></div>
+              <p class="master-feature"><b>Особенность:</b> Работает со сложными системами отопления, есть свой профессиональный инструмент</p>
+            </div>
+          </article>
+
+          <article class="glass-card master-card" data-reveal style="--delay:.09s">
+            <div class="photo-slot" aria-label="Заглушка: фото мастера в рабочей одежде">
+              <svg class="silhouette" viewBox="0 0 120 130" fill="none" aria-hidden="true">
+                <circle cx="60" cy="38" r="20" fill="currentColor" opacity=".18"/>
+                <path d="M20 130c0-25 18-42 40-42s40 17 40 42" fill="currentColor" opacity=".18"/>
+                <path d="M84 96 104 74m-4-2 6 6" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".3"/>
+              </svg>
+              <span class="slot-label">ФОТО МАСТЕРА</span>
+            </div>
+            <div class="master-body">
+              <h3>Дмитрий С.</h3>
+              <p class="master-spec">Специализация: Сборка мебели, мелкий ремонт, установка техники</p>
+              <div class="chips"><span>Опыт в DE: 5 лет</span><span>Русский, Английский (C1)</span></div>
+              <p class="master-feature"><b>Особенность:</b> Идеально собирает IKEA и кухни на заказ, всегда убирает за собой</p>
+            </div>
+          </article>
+
+          <article class="glass-card master-card" data-reveal style="--delay:.18s">
+            <div class="photo-slot" aria-label="Заглушка: фото мастера в рабочей одежде">
+              <svg class="silhouette" viewBox="0 0 120 130" fill="none" aria-hidden="true">
+                <circle cx="60" cy="38" r="20" fill="currentColor" opacity=".18"/>
+                <path d="M20 130c0-25 18-42 40-42s40 17 40 42" fill="currentColor" opacity=".18"/>
+                <path d="M30 74 16 60m3-3 4 4M90 74l14-14m-4-3-4 4" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".3"/>
+              </svg>
+              <span class="slot-label">ФОТО МАСТЕРА</span>
+            </div>
+            <div class="master-body">
+              <h3>Сергей В.</h3>
+              <p class="master-spec">Специализация: Покраска, обои, гипсокартон, плиточные работы</p>
+              <div class="chips"><span>Опыт в DE: 4 года</span><span>Русский, Немецкий (A2)</span></div>
+              <p class="master-feature"><b>Особенность:</b> Работает быстро, дает гарантию на швы и стыки 12 месяцев</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="placeholder-hint" data-reveal>ЗАГЛУШКА: фото каждого мастера в рабочей одежде, с инструментом. Без стоковых улыбающихся моделей!</p>
+      </div>
+    </section>
+
+    <!-- КЕЙСЫ -->
+    <section class="section section-cases" id="cases">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="kicker">Реальные истории</span>
+          <h2>Цифры говорят громче слов</h2>
+          <p><em>Заполняем фактами, даже если нет текста отзыва.</em></p>
+        </div>
+
+        <div class="cards-grid cards-grid-3 case-grid">
+          <article class="glass-card case-card" data-reveal>
+            <div class="case-visual"><span class="case-big">3 ч</span><span class="case-small">вместо 6 ч</span></div>
+            <div class="case-body">
+              <span class="case-index">Кейс 01</span>
+              <h3>Сборка кухни IKEA</h3>
+              <p><b>Задача:</b> собрать 6 шкафов + столешницу</p>
+              <p><b>Срок:</b> 3 часа вместо заявленных продавцом 6 часов</p>
+              <p><b>Результат:</b> клиент сэкономил 120€ на услугах сборщика магазина + получил чек для налоговой</p>
+            </div>
+          </article>
+
+          <article class="glass-card case-card" data-reveal style="--delay:.09s">
+            <div class="case-visual"><span class="case-big">40 мин</span><span class="case-small">и ноль замечаний</span></div>
+            <div class="case-body">
+              <span class="case-index">Кейс 02</span>
+              <h3>Течь под раковиной в съемной квартире</h3>
+              <p><b>Задача:</b> заменить сифон, не повредить арендованную мебель</p>
+              <p><b>Срок:</b> 40 минут</p>
+              <p><b>Результат:</b> арендодатель принял работу без замечаний, залог возвращен полностью</p>
+            </div>
+          </article>
+
+          <article class="glass-card case-card" data-reveal style="--delay:.18s">
+            <div class="case-visual"><span class="case-big">1,5 ч</span><span class="case-small">по стандарту VDE</span></div>
+            <div class="case-body">
+              <span class="case-index">Кейс 03</span>
+              <h3>Установка люстры и 4 розеток</h3>
+              <p><b>Задача:</b> подключить свет по немецким стандартам (VDE)</p>
+              <p><b>Срок:</b> 1.5 часа</p>
+              <p><b>Результат:</b> выдан сертификат соответствия, проблем со страховкой при пожаре нет</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ОТЗЫВЫ -->
+    <section class="section section-reviews" id="reviews">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="kicker">Доверие</span>
+          <h2>Реальные отзывы клиентов</h2>
+          <p>Сюда встанут настоящие скриншоты, фото и голоса — без выдуманных текстов.</p>
+        </div>
+
+        <div class="cards-grid cards-grid-3 review-grid">
+          <article class="glass-card review-card" data-reveal>
+            <div class="review-visual chat-mock" aria-hidden="true">
+              <div class="chat-bar"><span></span><span></span><span></span></div>
+              <div class="chat-line chat-line-in"></div>
+              <div class="chat-line chat-line-out"></div>
+              <div class="chat-line chat-line-in short"></div>
+              <div class="chat-line chat-line-out medium"></div>
+              <span class="mock-label">WHATSAPP / TELEGRAM</span>
+            </div>
+            <div class="review-body">
+              <span class="review-tag">ЗАГЛУШКА 1</span>
+              <p>«Место для реального скриншота с благодарностью клиента. Формат: фото экрана телефона, где виден диалог с мастером. Без выдуманных текстов!»</p>
+            </div>
+          </article>
+
+          <article class="glass-card review-card" data-reveal style="--delay:.09s">
+            <div class="review-visual before-after" aria-hidden="true">
+              <div class="ba-half ba-before"><span>ДО</span></div>
+              <div class="ba-half ba-after"><span>ПОСЛЕ</span></div>
+              <span class="ba-divider"></span>
+            </div>
+            <div class="review-body">
+              <span class="review-tag">ЗАГЛУШКА 2</span>
+              <p>«Место для фото "До/После" с реальной работой. Подпись: "Сделано [Дата], район [Название района]". Без стоковых картинок!»</p>
+            </div>
+          </article>
+
+          <article class="glass-card review-card" data-reveal style="--delay:.18s">
+            <div class="review-visual audio-mock" aria-hidden="true">
+              <button class="play-btn" type="button" tabindex="-1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></button>
+              <div class="waveform"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <span class="audio-time">0:00</span>
+            </div>
+            <div class="review-body">
+              <span class="review-tag">ЗАГЛУШКА 3</span>
+              <p>«Место для плеера с голосовым сообщением от клиента. Голос вызывает больше доверия, чем текст. Запишем при следующем заказе!»</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section-cta" id="cta">
+      <div class="cta-bg" aria-hidden="true">
+        <span class="orb orb-4" data-parallax="-0.14"></span>
+        <span class="orb orb-5" data-parallax="0.1"></span>
+      </div>
+      <div class="container cta-inner" data-reveal>
+        <span class="eyebrow eyebrow-dark"><span class="pulse"></span> Ограниченное предложение</span>
+        <h2>Сегодня свободно <span class="hl-inline">3 окна</span> на вечер</h2>
+        <div class="time-chips" aria-label="Свободные окна">
+          <span>18:00</span><span>19:30</span><span>21:00</span>
+        </div>
+        <p class="cta-lead">Оставьте заявку до 16:00 — выезд мастера бесплатно <b>(экономия 25€)</b>.</p>
+        <a class="btn btn-dark btn-xl" href="#top" data-contact>
+          Написать мастеру лично
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="microtext">Прямая связь. Без диспетчеров и наценок.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Подвал -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-mark logo-mark-dark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L5 16l3 3 4.3-4.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4 2.5-2.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <div><strong>СТИЛЬ</strong><small>бытовые услуги в <span data-city>Берлин</span></small></div>
+      </div>
+      <p>Работаю официально: Impressum, чек, страховка.</p>
+      <div class="footer-links">
+        <a href="#prices">Цены</a>
+        <a href="#masters">Мастера</a>
+        <a href="#cta">Контакт</a>
+      </div>
+      <small class="copyright">© <span id="year">2026</span> Стиль. Все права защищены.</small>
+    </div>
+  </footer>
+
+  <!-- Плавающая кнопка связи -->
+  <a class="fab" href="#top" data-contact aria-label="Написать мастеру в WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.7a8 8 0 0 1-11.7 7.1L4 20l1.3-4.1A8 8 0 1 1 20 11.7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9.5c.3 2.5 2.5 4.7 5 5l1-1.4 2 .9c.3.7.1 1.5-.5 2-.6.5-1.4.6-2.2.4A8.3 8.3 0 0 1 7.6 10c-.2-.8-.1-1.6.4-2.2.5-.6 1.3-.8 2-.5l.9 2L9 9.5Z" fill="currentColor"/></svg>
+  </a>
+
+  <!-- Модальное окно заявки -->
+  <div class="modal" id="requestModal" aria-hidden="true">
+    <div class="modal-backdrop" data-modal-close></div>
+
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="modal-form-view" id="modalFormView">
+        <span class="kicker">Заявка</span>
+        <h2 id="modalTitle">Написать мастеру лично</h2>
+        <p class="modal-subtitle">Оставьте контакты — мастер свяжется с вами и подтвердит цену по фото.</p>
+
+        <form id="requestForm">
+          <div class="form-row">
+            <label class="form-field">
+              <span>Имя</span>
+              <input type="text" name="firstName" placeholder="Иван" autocomplete="given-name" required>
+            </label>
+            <label class="form-field">
+              <span>Фамилия</span>
+              <input type="text" name="lastName" placeholder="Иванов" autocomplete="family-name" required>
+            </label>
+          </div>
+
+          <label class="form-field">
+            <span>WhatsApp / телефон</span>
+            <input type="tel" name="whatsapp" placeholder="+49 170 1234567" autocomplete="tel" inputmode="tel" required>
+          </label>
+
+          <label class="form-field">
+            <span>Услуга</span>
+            <span class="select-wrap">
+              <select name="service" id="formService" required>
+                <option value="" disabled selected>Выберите услугу</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </label>
+
+          <input type="hidden" name="city" id="formCity" value="Берлин">
+
+          <label class="form-consent">
+            <input type="checkbox" name="consent" id="formConsent" required>
+            <span>Я согласен(на) на обработку персональных данных (имя, фамилия, WhatsApp) для связи по этой заявке в соответствии с DSGVO.</span>
+          </label>
+
+          <button class="btn btn-dark btn-lg form-submit" type="submit" id="formSubmit">
+            Отправить заявку
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          <p class="modal-micro">Прямая связь. Без диспетчеров и наценок.</p>
+        </form>
+      </div>
+
+      <div class="form-success" id="formSuccess" hidden>
+        <span class="success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <h2>Заявка принята</h2>
+        <p id="successText">Мастер свяжется с вами в ближайшее время.</p>
+        <button class="btn btn-glass btn-lg" type="button" data-modal-close>Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
