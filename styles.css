@@ -171,6 +171,37 @@ h1, h2, h3, p { margin-top: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  padding: 3px;
+  border: 1px solid rgba(0, 0, 0, .08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.lang-btn {
+  min-width: 34px;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 800 11px/1 var(--font-body);
+  letter-spacing: .08em;
+  cursor: pointer;
+  transition: background .25s var(--ease), color .25s, box-shadow .25s;
+}
+.lang-btn.is-active {
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: 0 4px 12px var(--yellow-glow);
+}
+.lang-btn:focus-visible { outline: 3px solid rgba(255, 197, 1, .55); outline-offset: 2px; }
+
 /* ---------- Кнопки ---------- */
 .btn {
   position: relative;
@@ -950,7 +981,9 @@ body.modal-open { overflow: hidden; }
   .container { width: min(100% - 32px, 560px); }
   html { scroll-padding-top: 78px; }
   .site-header { padding: 12px 0; }
-  .nav-toggle { display: block; margin-left: auto; }
+  .header-inner { gap: 12px; }
+  .lang-switch { margin-left: auto; }
+  .nav-toggle { display: block; margin-left: 0; }
   .nav {
     position: absolute;
     top: calc(100% + 8px);

@@ -18,12 +18,59 @@ const SITE_CONFIG = {
   formEndpoint: 'https://script.google.com/macros/s/AKfycbzq9JOofs-C_b_5ZafdaL4FtCQVoSgV10fFLwyedj5fAouDhxozN8q22tynP8hQdVKn/exec'
 };
 
+/* ---------- Двуязычие ---------- */
+const I18N = window.STIL_I18N || { ru: {}, de: {}, attrs: { ru: {}, de: {} } };
+let currentLang = 'ru';
+
+const t = (key, vars = {}) => {
+  let value = (I18N[currentLang] && I18N[currentLang][key]) || I18N.ru[key] || key;
+  Object.keys(vars).forEach(name => {
+    value = value.replace(new RegExp(`\\{${name}\\}`, 'g'), String(vars[name]));
+  });
+  return value;
+};
+
+const localizedCity = () => (currentLang === 'de' ? 'Berlin' : SITE_CONFIG.city);
+
 document.addEventListener('DOMContentLoaded', () => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  try {
+    const savedLang = localStorage.getItem('stil-lang');
+    if (savedLang === 'ru' || savedLang === 'de') currentLang = savedLang;
+  } catch (ignored) {
+    // Приватный режим может запретить localStorage — используем русский по умолчанию.
+  }
+
+  // Запоминаем исходные тексты до любых динамических изменений.
+  const textNodes = [];
+  const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const tag = node.parentElement && node.parentElement.tagName;
+      if (!node.nodeValue.trim() || tag === 'SCRIPT' || tag === 'STYLE') {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  while (textWalker.nextNode()) {
+    const node = textWalker.currentNode;
+    node.__stilyOriginal = node.nodeValue;
+    textNodes.push(node);
+  }
+
+  const attrNodes = [];
+  document.querySelectorAll('[placeholder], [aria-label], [title]').forEach(el => {
+    if (el.hasAttribute('data-calc-cta') || el.id === 'navToggle') return;
+    ['placeholder', 'aria-label', 'title'].forEach(attr => {
+      const original = el.getAttribute(attr);
+      if (original) attrNodes.push({ el, attr, original });
+    });
+  });
+
   /* ---------- Подстановка города и ссылок ---------- */
   document.querySelectorAll('[data-city]').forEach(el => {
-    el.textContent = SITE_CONFIG.city;
+    el.textContent = localizedCity();
   });
 
   const meta = document.querySelector('meta[name="description"]');
@@ -49,6 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${base}${separator}text=${encodeURIComponent(text)}`;
   };
 
+  const calcUpdaters = [];
+
   document.querySelectorAll('.calc').forEach(calc => {
     const select = calc.querySelector('[data-calc-select]');
     const priceEl = calc.querySelector('[data-calc-price]');
@@ -57,19 +106,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const update = () => {
       const option = select.options[select.selectedIndex];
-      const service = option.dataset.label || option.textContent.trim();
-      const price = option.dataset.price || '';
+      const service = t(option.dataset.label || option.textContent.trim());
+      const price = t(option.dataset.price || '');
 
       priceEl.textContent = price;
-      cta.setAttribute('aria-label', `Написать с расчётом: ${service}`);
-      cta.href = buildContactUrl(
-        `Здравствуйте! Интересует «${service}» в ${SITE_CONFIG.city}. ` +
-        `Ориентировочная стоимость по прайсу: ${price}. Прошу подтвердить точную сумму по фото.`
-      );
+      cta.setAttribute('aria-label', t('calcAria', { service }));
+      cta.href = buildContactUrl(t('whatsappText', {
+        service,
+        city: localizedCity(),
+        price
+      }));
       cta.setAttribute('target', '_blank');
       cta.setAttribute('rel', 'noopener noreferrer');
     };
 
+    calcUpdaters.push(update);
     select.addEventListener('change', update);
     update();
   });
@@ -85,31 +136,67 @@ document.addEventListener('DOMContentLoaded', () => {
   const formService = document.getElementById('formService');
   const formCity = document.getElementById('formCity');
   let lastFocused = null;
+  let lastSuccessService = '';
+
+  const setFormStatus = (key, ok = false) => {
+    formStatus.textContent = t(key);
+    formStatus.dataset.msgKey = key;
+    formStatus.classList.toggle('ok', ok);
+  };
+
+  const clearFormStatus = () => {
+    formStatus.textContent = '';
+    delete formStatus.dataset.msgKey;
+    formStatus.classList.remove('ok');
+  };
 
   // Список услуг собирается из карточек прайса — данные не дублируются.
-  document.querySelectorAll('.price-card').forEach(card => {
-    const category = card.querySelector('.price-head h3')?.textContent.trim() || 'Услуги';
-    const group = document.createElement('optgroup');
-    group.label = category;
+  // value остаётся каноничным русским, на экране показывается перевод.
+  const renderServiceOptions = () => {
+    const selected = formService.value;
 
-    card.querySelectorAll('[data-calc-select] option').forEach(option => {
-      const label = `${option.dataset.label || option.textContent.trim()} — ${option.dataset.price || ''}`.trim();
-      const item = document.createElement('option');
-      item.value = label;
-      item.textContent = label;
-      group.appendChild(item);
+    formService.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.disabled = true;
+    placeholder.textContent = t('Выберите услугу');
+    formService.appendChild(placeholder);
+
+    document.querySelectorAll('.price-card').forEach(card => {
+      const category = t(card.querySelector('.price-head h3')?.textContent.trim() || 'Услуги');
+      const group = document.createElement('optgroup');
+      group.label = category;
+
+      card.querySelectorAll('[data-calc-select] option').forEach(option => {
+        const canonicalLabel = option.dataset.label || option.textContent.trim();
+        const canonicalPrice = option.dataset.price || '';
+        const item = document.createElement('option');
+        item.value = `${canonicalLabel} — ${canonicalPrice}`.trim();
+        item.textContent = `${t(canonicalLabel)} — ${t(canonicalPrice)}`.trim();
+        group.appendChild(item);
+      });
+
+      if (group.children.length) formService.appendChild(group);
     });
 
-    if (group.children.length) formService.appendChild(group);
-  });
+    if ([...formService.options].some(option => option.value === selected)) {
+      formService.value = selected;
+    }
+  };
+
+  renderServiceOptions();
+
+  const displayServiceLabel = canonical => {
+    const option = [...formService.options].find(item => item.value === canonical);
+    return option ? option.textContent : canonical;
+  };
 
   const openModal = (trigger, service = '') => {
     lastFocused = trigger || document.activeElement;
     form.reset();
     formService.value = service;
     formCity.value = SITE_CONFIG.city;
-    formStatus.textContent = '';
-    formStatus.classList.remove('ok');
+    clearFormStatus();
     modalFormView.hidden = false;
     formSuccess.hidden = true;
 
@@ -176,12 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
 
     if (!formService.value) {
-      formStatus.textContent = 'Выберите услугу из списка.';
+      setFormStatus('serviceRequired');
       formService.focus();
       return;
     }
     if (!form.elements.consent.checked) {
-      formStatus.textContent = 'Для отправки заявки нужно согласие на обработку персональных данных (DSGVO).';
+      setFormStatus('consentRequired');
       form.elements.consent.focus();
       return;
     }
@@ -191,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const digits = phone.replace(/\D/g, '');
     const phoneFormatOk = /^\+?[0-9 ()\-\/]{7,25}$/.test(phone);
     if (!phoneFormatOk || digits.length < 7 || digits.length > 15) {
-      formStatus.textContent = 'Некорректный номер: только цифры, +, пробелы, скобки и дефис (от 7 до 15 цифр).';
+      setFormStatus('phoneInvalid');
       form.elements.whatsapp.focus();
       return;
     }
@@ -209,13 +296,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     formSubmit.disabled = true;
-    formStatus.textContent = '';
-    formStatus.classList.remove('ok');
+    clearFormStatus();
 
     if (!SITE_CONFIG.formEndpoint) {
       console.info('[Стиль] Заявка (демо-режим):', data);
-      formStatus.classList.add('ok');
-      formStatus.textContent = 'Демо-режим: данные не отправлены. Укажите formEndpoint в script.js.';
+      setFormStatus('demoMode', true);
       formSubmit.disabled = false;
       return;
     }
@@ -243,12 +328,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       modalFormView.hidden = true;
       formSuccess.hidden = false;
+      lastSuccessService = data.service;
       successText.textContent = data.service
-        ? `Заявка по услуге «${data.service}» принята. Мастер свяжется с вами в ближайшее время.`
-        : 'Мастер свяжется с вами в ближайшее время.';
+        ? t('successWithService', { service: displayServiceLabel(data.service) })
+        : t('successPlain');
     } catch (error) {
       console.error('[Стиль] Ошибка отправки заявки:', error);
-      formStatus.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз или напишите в WhatsApp.';
+      setFormStatus('sendError');
     } finally {
       formSubmit.disabled = false;
     }
@@ -262,13 +348,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeNav = () => {
     nav.classList.remove('open');
     navToggle.setAttribute('aria-expanded', 'false');
-    navToggle.setAttribute('aria-label', 'Открыть меню');
+    navToggle.setAttribute('aria-label', t('navOpen'));
   };
 
   navToggle.addEventListener('click', () => {
     const isOpen = nav.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', String(isOpen));
-    navToggle.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+    navToggle.setAttribute('aria-label', t(isOpen ? 'navClose' : 'navOpen'));
   });
 
   nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeNav));
@@ -401,4 +487,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sections.forEach(section => sectionObserver.observe(section));
   }
+
+  /* ---------- Применение языка ---------- */
+  function applyTranslations() {
+    document.documentElement.lang = currentLang;
+
+    textNodes.forEach(node => {
+      const original = node.__stilyOriginal;
+      const key = original.trim();
+      if (currentLang === 'de' && I18N.de[key]) {
+        node.nodeValue = original.replace(key, I18N.de[key]);
+      } else {
+        node.nodeValue = original;
+      }
+    });
+
+    attrNodes.forEach(({ el, attr, original }) => {
+      const translated = currentLang === 'de'
+        ? (I18N.attrs.de[original] || original)
+        : original;
+      el.setAttribute(attr, translated);
+    });
+
+    document.title = t('Стиль — бытовые услуги в Берлине. Официально, чек, страховка');
+    if (meta) {
+      meta.setAttribute('content', t('Русскоязычный мастер в Берлине. Сантехника, электрика, сборка мебели. Оценка по фото за 5 минут, фиксированная цена, приезд в окно 60 минут, чек и гарантия 6 месяцев.'));
+    }
+
+    document.querySelectorAll('[data-city]').forEach(el => {
+      el.textContent = localizedCity();
+    });
+
+    renderServiceOptions();
+    calcUpdaters.forEach(update => update());
+
+    navToggle.setAttribute('aria-label', t(nav.classList.contains('open') ? 'navClose' : 'navOpen'));
+
+    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+      const active = btn.dataset.langBtn === currentLang;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+
+    if (formStatus.dataset.msgKey) {
+      formStatus.textContent = t(formStatus.dataset.msgKey);
+    }
+    if (!formSuccess.hidden) {
+      successText.textContent = lastSuccessService
+        ? t('successWithService', { service: displayServiceLabel(lastSuccessService) })
+        : t('successPlain');
+    }
+  }
+
+  function setLanguage(lang) {
+    if (lang !== 'ru' && lang !== 'de') return;
+    currentLang = lang;
+    try {
+      localStorage.setItem('stil-lang', lang);
+    } catch (ignored) {
+      // Сохранение необязательно.
+    }
+    applyTranslations();
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.langBtn));
+  });
+
+  applyTranslations();
 });
