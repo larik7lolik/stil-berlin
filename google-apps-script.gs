@@ -24,6 +24,12 @@ const HEADERS = [
   'Согласие DSGVO'
 ];
 
+/** Запустите в редакторе Apps Script: в логе будет видна версия активного кода. */
+function checkVersion() {
+  Logger.log('VERSION: ' + SCRIPT_VERSION);
+  return SCRIPT_VERSION;
+}
+
 function getSpreadsheet() {
   if (SPREADSHEET_ID) {
     return SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -56,7 +62,7 @@ function getTargetSheet() {
 }
 
 /**
- * Невидимый пробел перед "+" guarantees, что ячейка не будет разобрана как формула.
+ * Невидимый пробел перед "+" гарантирует, что ячейка не будет разобрана как формула.
  * Сам апостроф в Apps Script иногда сохраняется как обычный символ и не защищает.
  */
 function textCellValue(value) {
