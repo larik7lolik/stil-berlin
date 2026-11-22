@@ -10,6 +10,7 @@
 // вставьте сюда ID таблицы из её адреса: /spreadsheets/d/ID/edit
 const SPREADSHEET_ID = '';
 
+const SCRIPT_VERSION = 'v5-2026-11-22';
 const SHEET_NAME = 'Заявки';
 const LOG_SHEET_NAME = 'Ошибки';
 const HEADERS = [
@@ -44,24 +45,32 @@ function getTargetSheet() {
     sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
     sheet.setFrozenRows(1);
     sheet.setColumnWidths(1, HEADERS.length, 190);
-    // Номер начинается с "+", иначе Таблицы считают его формулой и показывают #ERROR!
-    sheet.getRange(2, 4, 1000, 1).setNumberFormat('@');
   }
+
+  // Формат текстом на ВСЕЙ колонке, а не только при создании листа.
+  // Иначе старые листы продолжают читать "+49..." как формулу.
+  const phoneColumn = sheet.getRange(2, 4, Math.max(sheet.getMaxRows() - 1, 1), 1);
+  phoneColumn.setNumberFormat('@');
+
   return sheet;
 }
 
-/** Знак ' перед значением заставляет Таблицы хранить его текстом, а не формулой. */
+/**
+ * Невидимый пробел перед "+" guarantees, что ячейка не будет разобрана как формула.
+ * Сам апостроф в Apps Script иногда сохраняется как обычный символ и не защищает.
+ */
 function textCellValue(value) {
   const str = String(value == null ? '' : value);
   if (!str) return '';
-  return /^[+=\-@]/.test(str) ? "'" + str : str;
+  return /^[+=\-@]/.test(str) ? '\u200B' + str : str;
 }
 
-/** Добавляет строку и принудительно хранит WhatsApp текстом. */
+/** Добавляет строку через setValues: формат колонки применён заранее. */
 function appendLead(values) {
   const sheet = getTargetSheet();
-  sheet.getRange(sheet.getLastRow() + 1, 4, 1, 1).setNumberFormat('@');
-  sheet.appendRow(values);
+  const row = sheet.getLastRow() + 1;
+  sheet.getRange(row, 4, 1, 1).setNumberFormat('@');
+  sheet.getRange(row, 1, 1, values.length).setValues([values]);
 }
 
 function doPost(e) {
@@ -93,19 +102,26 @@ function doPost(e) {
  * В таблице должна появиться тестовая строка.
  */
 function doGet(e) {
-  if (e && e.parameter && e.parameter.test) {
+  const param = (e && e.parameter) || {};
+
+  // Проверка, что развёрнута именно эта версия скрипта.
+  if (param.version) {
+    return ContentService.createTextOutput('VERSION: ' + SCRIPT_VERSION);
+  }
+
+  if (param.test) {
     try {
       appendLead([
         new Date().toISOString(),
         'ТЕСТ',
         'ТЕСТ',
         textCellValue('+49 170 0000000'),
-        'Проверка подключения',
+        'Проверка подключения ' + SCRIPT_VERSION,
         'Берлин',
         'doGet ?test=1',
         'Да'
       ]);
-      return ContentService.createTextOutput('TEST ROW ADDED');
+      return ContentService.createTextOutput('TEST ROW ADDED ' + SCRIPT_VERSION);
     } catch (error) {
       logError(error, e);
       return ContentService.createTextOutput('ERROR: ' + String(error));
@@ -154,9 +170,12 @@ function fixPhoneColumn() {
   let fixed = 0;
 
   values.forEach((row, index) => {
-    const str = String(row[0] || '');
-    if (str && str.charAt(0) !== "'" && /^[+=\-@]/.test(str)) {
-      values[index][0] = "'" + str;
+    let str = String(row[0] || '');
+    if (!str) return;
+    if (str.charAt(0) === "'") str = str.slice(1);
+    if (str.charAt(0) === '\u200B') return; // уже защищено
+    if (/^[+=\-@]/.test(str)) {
+      values[index][0] = '\u200B' + str;
       fixed++;
     }
   });
